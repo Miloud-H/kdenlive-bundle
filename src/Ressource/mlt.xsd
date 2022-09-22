@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- MLT XML DTD v7.0.0 -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <xs:element name="mlt">
+        <xs:complexType>
+            <xs:choice maxOccurs="unbounded">
+                <xs:element ref="profile"/>
+                <xs:element ref="producer"/>
+                <xs:element ref="playlist"/>
+                <xs:element ref="tractor"/>
+                <xs:element ref="multitrack"/>
+                <xs:element ref="consumer"/>
+                <xs:element ref="chain"/>
+            </xs:choice>
+            <xs:attribute name="LC_NUMERIC"/>
+            <xs:attribute name="version"/>
+            <xs:attribute name="root"/>
+            <xs:attribute name="profile"/>
+            <xs:attribute name="title"/>
+            <xs:attribute name="producer" type="xs:IDREF"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="profile">
+        <xs:complexType>
+            <xs:attribute name="name"/>
+            <xs:attribute name="colorspace"/>
+            <xs:attribute name="description"/>
+            <xs:attribute name="display_aspect_den"/>
+            <xs:attribute name="display_aspect_num"/>
+            <xs:attribute name="frame_rate_den" use="required"/>
+            <xs:attribute name="frame_rate_num" use="required"/>
+            <xs:attribute name="height" use="required"/>
+            <xs:attribute name="progressive" use="required"/>
+            <xs:attribute name="sample_aspect_den" use="required"/>
+            <xs:attribute name="sample_aspect_num" use="required"/>
+            <xs:attribute name="width" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="property">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="any">
+                    <xs:attribute name="name" use="required"/>
+                    <xs:attribute name="value"/>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="properties">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="property"/>
+            </xs:sequence>
+            <xs:attribute name="name" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="producer">
+        <xs:complexType>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+                <xs:element ref="property"/>
+                <xs:element ref="properties"/>
+                <xs:element ref="filter"/>
+            </xs:choice>
+            <xs:attribute name="id" type="xs:ID"/>
+            <xs:attribute name="in"/>
+            <xs:attribute name="out"/>
+            <xs:attribute name="title"/>
+            <xs:attribute name="mlt_service"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="chain">
+        <xs:complexType>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+                <xs:element ref="property"/>
+                <xs:element ref="properties"/>
+                <xs:element ref="filter"/>
+                <xs:element ref="link"/>
+            </xs:choice>
+            <xs:attribute name="id" type="xs:ID"/>
+            <xs:attribute name="in"/>
+            <xs:attribute name="out"/>
+            <xs:attribute name="mlt_service"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="link">
+        <xs:complexType>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+                <xs:element ref="property"/>
+                <xs:element ref="properties"/>
+            </xs:choice>
+            <xs:attribute name="id" type="xs:ID"/>
+            <xs:attribute name="in"/>
+            <xs:attribute name="out"/>
+            <xs:attribute name="mlt_service"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="filter">
+        <xs:complexType>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+                <xs:element ref="property"/>
+                <xs:element ref="properties"/>
+            </xs:choice>
+            <xs:attribute name="id" type="xs:ID"/>
+            <xs:attribute name="in"/>
+            <xs:attribute name="out"/>
+            <xs:attribute name="mlt_service"/>
+            <xs:attribute name="track"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="transition">
+        <xs:complexType>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+                <xs:element ref="property"/>
+                <xs:element ref="properties"/>
+            </xs:choice>
+            <xs:attribute name="id" type="xs:ID"/>
+            <xs:attribute name="in"/>
+            <xs:attribute name="out"/>
+            <xs:attribute name="mlt_service"/>
+            <xs:attribute name="a_track"/>
+            <xs:attribute name="b_track"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="playlist">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:choice minOccurs="0" maxOccurs="unbounded">
+                    <xs:element ref="property"/>
+                    <xs:element ref="properties"/>
+                </xs:choice>
+                <xs:choice minOccurs="0" maxOccurs="unbounded">
+                    <xs:element ref="entry"/>
+                    <xs:element ref="blank"/>
+                    <xs:element ref="producer"/>
+                    <xs:element ref="playlist"/>
+                    <xs:element ref="tractor"/>
+                    <xs:element ref="multitrack"/>
+                    <xs:element ref="chain"/>
+                </xs:choice>
+            </xs:sequence>
+            <xs:attribute name="id" type="xs:ID"/>
+            <xs:attribute name="in"/>
+            <xs:attribute name="out"/>
+            <xs:attribute name="title"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="entry">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:choice minOccurs="0" maxOccurs="unbounded">
+                    <xs:element ref="property"/>
+                    <xs:element ref="properties"/>
+                </xs:choice>
+                <xs:choice minOccurs="0" maxOccurs="unbounded">
+                    <xs:element ref="producer"/>
+                    <xs:element ref="playlist"/>
+                    <xs:element ref="tractor"/>
+                    <xs:element ref="multitrack"/>
+                    <xs:element ref="filter"/>
+                    <xs:element ref="transition"/>
+                    <xs:element ref="chain"/>
+                </xs:choice>
+            </xs:sequence>
+            <xs:attribute name="producer" type="xs:IDREF"/>
+            <xs:attribute name="in"/>
+            <xs:attribute name="out"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="blank">
+        <xs:complexType>
+            <xs:attribute name="length" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="tractor">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:choice minOccurs="0" maxOccurs="unbounded">
+                    <xs:element ref="property"/>
+                    <xs:element ref="properties"/>
+                </xs:choice>
+                <xs:choice>
+                    <xs:element ref="multitrack"/>
+                    <xs:element maxOccurs="unbounded" ref="track"/>
+                </xs:choice>
+                <xs:choice minOccurs="0" maxOccurs="unbounded">
+                    <xs:element ref="filter"/>
+                    <xs:element ref="transition"/>
+                </xs:choice>
+            </xs:sequence>
+            <xs:attribute name="id" type="xs:ID"/>
+            <xs:attribute name="in"/>
+            <xs:attribute name="out"/>
+            <xs:attribute name="title"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="multitrack">
+        <xs:complexType>
+            <xs:choice maxOccurs="unbounded">
+                <xs:element ref="track"/>
+                <xs:element ref="producer"/>
+                <xs:element ref="playlist"/>
+                <xs:element ref="tractor"/>
+                <xs:element ref="multitrack"/>
+                <xs:element ref="chain"/>
+            </xs:choice>
+            <xs:attribute name="id" type="xs:ID"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="track">
+        <xs:complexType>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+                <xs:element ref="producer"/>
+                <xs:element ref="playlist"/>
+                <xs:element ref="tractor"/>
+                <xs:element ref="multitrack"/>
+                <xs:element ref="filter"/>
+                <xs:element ref="transition"/>
+                <xs:element ref="chain"/>
+            </xs:choice>
+            <xs:attribute name="producer" type="xs:IDREF"/>
+            <xs:attribute name="hide">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="video"/>
+                        <xs:enumeration value="audio"/>
+                        <xs:enumeration value="both"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="consumer">
+        <xs:complexType>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+                <xs:element ref="property"/>
+                <xs:element ref="properties"/>
+            </xs:choice>
+            <xs:attribute name="id" type="xs:ID"/>
+            <xs:attribute name="mlt_service"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="any" mixed="true">
+        <xs:sequence>
+            <xs:any minOccurs="0" maxOccurs="unbounded" processContents="strict"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

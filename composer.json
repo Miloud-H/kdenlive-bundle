@@ -4,8 +4,8 @@
     "type": "symfony-bundle",
     "license": "MIT",
     "require": {
-        "php": "^7.1 || ^8.0",
-        "ext-dom": "*",
+        "php": "^7.4 || ^8.0",
+        "ext-simplexml": "*",
         "symfony/dependency-injection": "^5.4 || ^6.0",
         "symfony/framework-bundle": "^5.4 || ^6.0"
     },
