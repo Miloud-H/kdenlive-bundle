@@ -7,68 +7,43 @@ namespace MiloudH\KdenliveBundle\Model\Track;
 use MiloudH\KdenliveBundle\Model\Chain\Chain;
 use MiloudH\KdenliveBundle\Model\Playlist;
 use MiloudH\KdenliveBundle\Model\Producer;
-use SimpleXMLElement;
+use Symfony\Component\Serializer\Annotation\SerializedPath;
 
 class MultiTrack
 {
+    #[SerializedPath("[@id]")]
     private ?string $id = null;
 
     /**
      * @var Track[]
      */
+    #[SerializedPath("[track]")]
     private array $tracks = [];
     /**
      * @var Producer[]
      */
+    #[SerializedPath("[producer]")]
     private array $producers = [];
     /**
      * @var Playlist[]
      */
+    #[SerializedPath("[playlist]")]
     private array $playlists = [];
     /**
      * @var Tractor[]
      */
+    #[SerializedPath("[tractor]")]
     private array $tractors = [];
     /**
      * @var MultiTrack[]
      */
+    #[SerializedPath("[multitrack]")]
     private array $multiTracks = [];
     /**
      * @var Chain[]
      */
+    #[SerializedPath("[chain]")]
     private array $chains = [];
-
-    public static function createFromXmlElement(SimpleXMLElement $element): self
-    {
-        $multiTrack = ( new self)
-            ->setId($element['id']);
-
-        foreach ($element->xpath('track') as $trackElement) {
-            $multiTrack->addTrack(Track::createFromXmlElement($trackElement));
-        }
-
-        foreach ($element->xpath('producer') as $producerElement) {
-            $multiTrack->addProducer(Producer::createFromXmlElement($producerElement));
-        }
-
-        foreach ($element->xpath('playlist') as $playlistElement) {
-            $multiTrack->addPlaylist(Playlist::createFromXmlElement($playlistElement));
-        }
-
-        foreach ($element->xpath('tractor') as $tractorElement) {
-            $multiTrack->addTractor(Tractor::createFromXmlElement($tractorElement));
-        }
-
-        foreach ($element->xpath('multitrack') as $multitrackElement) {
-            $multiTrack->addMultiTrack(MultiTrack::createFromXmlElement($multitrackElement));
-        }
-
-        foreach ($element->xpath('chain') as $chainElement) {
-            $multiTrack->addChain(Chain::createFromXmlElement($chainElement));
-        }
-
-        return $multiTrack;
-    }
 
     public function setId(?string $id): self
     {
@@ -82,33 +57,118 @@ class MultiTrack
         return $this->id;
     }
 
-    private function addProducer(Producer $producer)
+    public function getChains(): array
     {
-        $this->producers[] = $producer;
+        return $this->chains;
     }
 
-    private function addPlaylist(Playlist $playlist)
+    public function setChains(array $chains): self
     {
-        $this->playlists[] = $playlist;
+        $this->chains = $chains;
+
+        return $this;
     }
 
-    private function addTractor(Tractor $tractor)
-    {
-        $this->tractors[] = $tractor;
-    }
-
-    private function addTrack(Track $track)
-    {
-        $this->tracks[] = $track;
-    }
-
-    private function addMultiTrack(MultiTrack $multiTrack)
-    {
-        $this->multiTracks[] = $multiTrack;
-    }
-
-    private function addChain(Chain $chain)
+    public function addChain(Chain $chain): self
     {
         $this->chains[] = $chain;
+
+        return $this;
+    }
+
+    public function getTracks(): array
+    {
+        return $this->tracks;
+    }
+
+    public function setTracks(array $tracks): self
+    {
+        $this->tracks = $tracks;
+
+        return $this;
+    }
+
+    public function addTrack(Track $track): self
+    {
+        $this->tracks[] = $track;
+
+        return $this;
+    }
+
+    public function getProducers(): array
+    {
+        return $this->producers;
+    }
+
+    public function setProducers(array $producers): self
+    {
+        $this->producers = $producers;
+
+        return $this;
+    }
+
+    public function addProducer(Producer $producer): self
+    {
+        $this->producers[] = $producer;
+
+        return $this;
+    }
+
+    public function getPlaylists(): array
+    {
+        return $this->playlists;
+    }
+
+    public function setPlaylists(array $playlists): self
+    {
+        $this->playlists = $playlists;
+
+        return $this;
+    }
+
+    public function addPlaylist(Playlist $playlist): self
+    {
+        $this->playlists[] = $playlist;
+
+        return $this;
+    }
+
+    public function getTractors(): array
+    {
+        return $this->tractors;
+    }
+
+    public function setTractors(array $tractors): self
+    {
+        $this->tractors = $tractors;
+
+        return $this;
+    }
+
+    public function addTractor(Tractor $tractor): self
+    {
+        $this->tractors[] = $tractor;
+
+        return $this;
+    }
+
+
+    public function getMultiTracks(): array
+    {
+        return $this->multiTracks;
+    }
+
+    public function setMultiTracks(array $multiTracks): self
+    {
+        $this->multiTracks = $multiTracks;
+
+        return $this;
+    }
+
+    public function addMultiTrack(MultiTrack $multiTrack): self
+    {
+        $this->multiTracks[] = $multiTrack;
+
+        return $this;
     }
 }

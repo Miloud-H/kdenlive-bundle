@@ -4,44 +4,36 @@ namespace MiloudH\KdenliveBundle\Model;
 
 use MiloudH\KdenliveBundle\Model\Track\Filter;
 use SimpleXMLElement;
+use Symfony\Component\Serializer\Annotation\SerializedPath;
 
 class Producer
 {
+    #[SerializedPath("[@id]")]
     private ?string $id = null;
+
+    #[SerializedPath("[@in]")]
     private ?string $in = null;
+
+    #[SerializedPath("[@out]")]
     private ?string $out = null;
+
+    #[SerializedPath("[@title]")]
     private ?string $title = null;
+
+    #[SerializedPath("[@mlt_service]")]
     private ?string $mlt_service = null;
 
     /**
      * @var Property[]
      */
+    #[SerializedPath("[property]")]
     private array $properties = [];
 
     /**
      * @var Filter[]
      */
+    #[SerializedPath("[filter]")]
     private ?array $filters = [];
-
-    public static function createFromXmlElement(SimpleXMLElement $element): self
-    {
-        $producer = (new self)
-            ->setId($element['id'])
-            ->setIn($element['in'])
-            ->setOut($element['out'])
-            ->setTitle($element['title'])
-            ->setMltService($element['mlt_service']);
-
-        foreach ($element->xpath('property') as $propertyElement) {
-            $producer->addProperty(Property::createFromXmlElement($propertyElement));
-        }
-
-        foreach ($element->xpath('filter') as $filterElement) {
-            $producer->addFilter(Filter::createFromXmlElement($filterElement));
-        }
-
-        return $producer;
-    }
 
     public function getMltService(): ?string
     {
@@ -91,7 +83,7 @@ class Producer
         return $this;
     }
 
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
     }
@@ -103,13 +95,44 @@ class Producer
         return $this;
     }
 
-    private function addProperty(Property $property)
+    public function getProperties(): array
     {
-        $this->properties[] = $property;
+        return $this->properties;
     }
 
-    private function addFilter(Filter $filter)
+    /**
+     * @param array $properties
+     */
+    public function setProperties(array $properties): self
+    {
+        $this->properties = $properties;
+
+        return $this;
+    }
+
+    public function addProperty(Property $property): self
+    {
+        $this->properties[] = $property;
+
+        return $this;
+    }
+
+    public function getFilters(): ?array
+    {
+        return $this->filters;
+    }
+
+    public function setFilters(?array $filters): self
+    {
+        $this->filters = $filters;
+
+        return $this;
+    }
+
+    public function addFilter(Filter $filter): self
     {
         $this->filters[] = $filter;
+
+        return $this;
     }
 }

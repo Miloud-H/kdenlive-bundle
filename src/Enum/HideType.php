@@ -3,7 +3,7 @@
 namespace MiloudH\KdenliveBundle\Enum;
 
 
-interface HideType
+enum HideType: string
 {
     public const VIDEO = 'video';
     public const AUDIO = 'audio';

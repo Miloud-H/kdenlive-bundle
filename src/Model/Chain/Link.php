@@ -4,17 +4,26 @@ namespace MiloudH\KdenliveBundle\Model\Chain;
 
 use MiloudH\KdenliveBundle\Model\Property;
 use SimpleXMLElement;
+use Symfony\Component\Serializer\Annotation\SerializedPath;
 
 class Link
 {
+    #[SerializedPath("[@id]")]
     private ?string $id = null;
+
+    #[SerializedPath("[@in]")]
     private ?string $in = null;
+
+    #[SerializedPath("[@out]")]
     private ?string $out = null;
+
+    #[SerializedPath("[@mlt_service]")]
     private ?string $mlt_service = null;
 
     /**
      * @var Property[]
      */
+    #[SerializedPath("[property]")]
     private array $properties = [];
 
 
@@ -66,23 +75,22 @@ class Link
         return $this;
     }
 
-    private function addProperty(Property $property)
+    public function getProperties(): array
     {
-        $this->properties[] = $property;
+        return $this->properties;
     }
 
-    public static function createFromXmlElement(SimpleXMLElement $element): self
+    public function setProperties(array $properties): self
     {
-        $link = (new self)
-            ->setId($element['id'])
-            ->setIn($element['in'])
-            ->setOut($element['out'])
-            ->setMltService($element['mlt_service']);
+        $this->properties = $properties;
 
-        foreach ($element->xpath('property') as $propertyElement) {
-            $link->addProperty(Property::createFromXmlElement($propertyElement));
-        }
+        return $this;
+    }
 
-        return $link;
+    public function addProperty(Property $property): self
+    {
+        $this->properties[] = $property;
+
+        return $this;
     }
 }

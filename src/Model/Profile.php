@@ -4,70 +4,76 @@
 namespace MiloudH\KdenliveBundle\Model;
 
 
-use SimpleXMLElement;
+use Symfony\Component\Serializer\Annotation\SerializedPath;
 
 class Profile
 {
+    #[SerializedPath("[@name]")]
     private ?string $name = null;
-    private ?string $colorspace = null;
+
+    #[SerializedPath("[@colorspace]")]
+    private ?int $colorspace = null;
+
+    #[SerializedPath("[@description]")]
     private ?string $description = null;
-    private ?string $displayAspectDen = null;
-    private ?string $displayAspectNum = null;
-    private ?float $frameRateDen = null;
-    private ?float $frameRateNum = null;
-    private ?float $height = null;
-    private ?float $width = null;
-    private ?float $progressive = null;
-    private ?float $sampleAspectDen = null;
-    private ?float $sampleAspectNum = null;
-    
-    public static function createFromXmlElement(SimpleXMLElement $element): self
-    {
-        return (new self())
-            ->setName($element['name'])
-            ->setColorspace($element['colorspace'])
-            ->setDescription($element['description'])
-            ->setDisplayAspectDen($element['display_aspect_den'])
-            ->setDisplayAspectNum($element['display_aspect_num'])
-            ->setFrameRateDen(isset($element['frame_rate_den']) ? (float) $element['frame_rate_den'] : null)
-            ->setFrameRateNum(isset($element['frame_rate_num']) ? (float) $element['frame_rate_num'] : null)
-            ->setWidth(isset($element['width']) ? (float) $element['width'] : null)
-            ->setHeight(isset($element['height']) ? (float) $element['height'] : null)
-            ->setProgressive(isset($element['progressive']) ? (float) $element['progressive'] : null)
-            ->setSampleAspectDen(isset($element['sample_aspect_den']) ? (float) $element['sample_aspect_den'] : null)
-            ->setSampleAspectNum(isset($element['sample_aspect_num']) ? (float) $element['sample_aspect_num'] : null);
-    }
+
+    #[SerializedPath("[@display_aspect_den]")]
+    private ?int $displayAspectDen = null;
+
+    #[SerializedPath("[@display_aspect_num]")]
+    private ?int $displayAspectNum = null;
+
+    #[SerializedPath("[@frame_rate_den]")]
+    private ?int $frameRateDen = null;
+
+    #[SerializedPath("[@frame_rate_num]")]
+    private ?int $frameRateNum = null;
+
+    #[SerializedPath("[@height]")]
+    private ?int $height = null;
+
+    #[SerializedPath("[@width]")]
+    private ?int $width = null;
+
+    #[SerializedPath("[@progressive]")]
+    private ?int $progressive = null;
+
+    #[SerializedPath("[@sample_aspect_den]")]
+    private ?int $sampleAspectDen = null;
+
+    #[SerializedPath("[@sample_aspect_num]")]
+    private ?int $sampleAspectNum = null;
 
     public function getSampleAspectNum(): ?float
     {
         return $this->sampleAspectNum;
     }
 
-    public function setSampleAspectNum(?float $sampleAspectNum): self
+    public function setSampleAspectNum(?int $sampleAspectNum): self
     {
         $this->sampleAspectNum = $sampleAspectNum;
 
         return $this;
     }
 
-    public function getSampleAspectDen(): ?float
+    public function getSampleAspectDen(): ?int
     {
         return $this->sampleAspectDen;
     }
 
-    public function setSampleAspectDen(?float $sampleAspectDen): self
+    public function setSampleAspectDen(?int $sampleAspectDen): self
     {
         $this->sampleAspectDen = $sampleAspectDen;
 
         return $this;
     }
 
-    public function getProgressive(): ?float
+    public function getProgressive(): ?int
     {
         return $this->progressive;
     }
 
-    public function setProgressive(?float $progressive): self
+    public function setProgressive(?int $progressive): self
     {
         $this->progressive = $progressive;
 
@@ -79,7 +85,7 @@ class Profile
         return $this->width;
     }
 
-    public function setWidth(?float $width): self
+    public function setWidth(?int $width): self
     {
         $this->width = $width;
 
@@ -91,7 +97,7 @@ class Profile
         return $this->height;
     }
 
-    public function setHeight(?float $height): self
+    public function setHeight(?int $height): self
     {
         $this->height = $height;
 
@@ -103,43 +109,43 @@ class Profile
         return $this->frameRateNum;
     }
 
-    public function setFrameRateNum(?float $frameRateNum): self
+    public function setFrameRateNum(?int $frameRateNum): self
     {
         $this->frameRateNum = $frameRateNum;
 
         return $this;
     }
 
-    public function getFrameRateDen(): ?float
+    public function getFrameRateDen(): ?int
     {
         return $this->frameRateDen;
     }
 
-    public function setFrameRateDen(?float $frameRateDen): self
+    public function setFrameRateDen(?int $frameRateDen): self
     {
         $this->frameRateDen = $frameRateDen;
 
         return $this;
     }
 
-    public function getDisplayAspectNum(): ?string
+    public function getDisplayAspectNum(): ?int
     {
         return $this->displayAspectNum;
     }
 
-    public function setDisplayAspectNum(?string $displayAspectNum): self
+    public function setDisplayAspectNum(?int $displayAspectNum): self
     {
         $this->displayAspectNum = $displayAspectNum;
 
         return $this;
     }
 
-    public function getDisplayAspectDen(): ?string
+    public function getDisplayAspectDen(): ?int
     {
         return $this->displayAspectDen;
     }
 
-    public function setDisplayAspectDen(?string $displayAspectDen): self
+    public function setDisplayAspectDen(?int $displayAspectDen): self
     {
         $this->displayAspectDen = $displayAspectDen;
 
@@ -163,7 +169,7 @@ class Profile
         return $this->colorspace;
     }
     
-    public function setColorspace(?string $colorspace): self
+    public function setColorspace(?int $colorspace): self
     {
         $this->colorspace = $colorspace;
 

@@ -1,72 +1,52 @@
 <?php
-
-
 namespace MiloudH\KdenliveBundle\Model\Track;
 
-
 use MiloudH\KdenliveBundle\Model\Property;
-use SimpleXMLElement;
+use Symfony\Component\Serializer\Annotation\SerializedPath;
 
 class Tractor
 {
+    #[SerializedPath("[@id]")]
     private ?string $id = null;
+
+    #[SerializedPath("[@in]")]
     private ?string $in = null;
+
+    #[SerializedPath("[@out]")]
     private ?string $out = null;
+
+    #[SerializedPath("[@title]")]
     private ?string $title = null;
 
     /**
      * @var Property[]
      */
+    #[SerializedPath("[property]")]
     private array $properties = [];
 
     /**
      * @var MultiTrack[]
      */
+    #[SerializedPath("[multitrack]")]
     private array $multiTracks = [];
+
     /**
      * @var Track[]
      */
+    #[SerializedPath("[track]")]
     private array $tracks = [];
+
     /**
      * @var Filter[]
      */
+    #[SerializedPath("[filter]")]
     private array $filters = [];
+
     /**
      * @var Transition[]
      */
+    #[SerializedPath("[transition]")]
     private array $transitions = [];
-
-    public static function createFromXmlElement(SimpleXMLElement $element): self
-    {
-        $tractor = (new self)
-            ->setId($element['id'])
-            ->setIn($element['in'])
-            ->setOut($element['out'])
-            ->setTitle($element['title']);
-
-        foreach ($element->xpath('property') as $propertyElement) {
-            $tractor->addProperty(Property::createFromXmlElement($propertyElement));
-        }
-
-        foreach ($element->xpath('multitrack') as $multitrackElement) {
-            $tractor->addMultiTrack(MultiTrack::createFromXmlElement($multitrackElement));
-        }
-
-        foreach ($element->xpath('track') as $trackElement) {
-            $tractor->addTrack(Track::createFromXmlElement($trackElement));
-        }
-
-        foreach ($element->xpath('filter') as $filterElement) {
-            $tractor->addFilter(Filter::createFromXmlElement($filterElement));
-        }
-
-        foreach ($element->xpath('transition') as $transitionElement) {
-            $tractor->addTransition(Transition::createFromXmlElement($transitionElement));
-        }
-
-        return $tractor;
-
-    }
 
     public function setTitle(?string $title): self
     {
@@ -111,33 +91,102 @@ class Tractor
         return $this;
     }
 
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
     }
 
-    private function addProperty(Property $property)
+    public function getFilters(): array
     {
-        $this->properties[] = $property;
+        return $this->filters;
     }
 
-    private function addMultiTrack(MultiTrack $multiTrack)
+    public function setFilters(array $filters): self
     {
-        $this->multiTracks[] = $multiTrack;
+        $this->filters = $filters;
+
+        return $this;
     }
 
-    private function addTrack(Track $track)
-    {
-        $this->tracks[] = $track;
-    }
-
-    private function addFilter(Filter $filter)
+    public function addFilter(Filter $filter): self
     {
         $this->filters[] = $filter;
+
+        return $this;
     }
 
-    private function addTransition(Transition $transition)
+    public function getProperties(): array
+    {
+        return $this->properties;
+    }
+
+
+    public function setProperties(array $properties): self
+    {
+        $this->properties = $properties;
+
+        return $this;
+    }
+
+    public function addProperty(Property $property): self
+    {
+        $this->properties[] = $property;
+
+        return $this;
+    }
+
+    public function getMultiTracks(): array
+    {
+        return $this->multiTracks;
+    }
+
+    public function setMultiTracks(array $multiTracks): self
+    {
+        $this->multiTracks = $multiTracks;
+
+        return $this;
+    }
+
+    public function addMultiTrack(MultiTrack $multiTrack): self
+    {
+        $this->multiTracks[] = $multiTrack;
+
+        return $this;
+    }
+
+    public function getTracks(): array
+    {
+        return $this->tracks;
+    }
+
+    public function setTracks(array $tracks): self
+    {
+        $this->tracks = $tracks;
+
+        return $this;
+    }
+
+    public function addTrack(Track $track): self
+    {
+        $this->tracks[] = $track;
+
+        return $this;
+    }
+
+    public function getTransitions(): array
+    {
+        return $this->transitions;
+    }
+
+    public function setTransitions(array $transitions): void
+    {
+        $this->transitions = $transitions;
+    }
+
+    public function addTransition(Transition $transition): self
     {
         $this->transitions[] = $transition;
+
+        return $this;
     }
 }

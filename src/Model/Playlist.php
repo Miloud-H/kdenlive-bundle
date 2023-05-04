@@ -8,86 +8,68 @@ use MiloudH\KdenliveBundle\Model\Playlist\Entry;
 use MiloudH\KdenliveBundle\Model\Track\MultiTrack;
 use MiloudH\KdenliveBundle\Model\Track\Tractor;
 use SimpleXMLElement;
+use Symfony\Component\Serializer\Annotation\SerializedPath;
 
 class Playlist
 {
+    #[SerializedPath("[@id]")]
     private ?string $id = null;
+
+    #[SerializedPath("[@in]")]
     private ?string $in = null;
+
+    #[SerializedPath("[@out]")]
     private ?string $out = null;
+
+    #[SerializedPath("[@title]")]
     private ?string $title = null;
 
     /**
      * @var Property[]
      */
+    #[SerializedPath("[property]")]
     private array $properties = [];
 
     /**
      * @var Entry[]
      */
+    #[SerializedPath("[entry]")]
     private array $entries = [];
     /**
      * @var Blank[]
      */
+    #[SerializedPath("[blank]")]
     private array $blanks = [];
+
     /**
      * @var Producer[]
      */
+    #[SerializedPath("[producer]")]
     private array $producers = [];
+
     /**
      * @var Playlist[]
      */
+    #[SerializedPath("[playlist]")]
     private array $playlists = [];
+
     /**
      * @var Tractor[]
      */
+    #[SerializedPath("[tractor]")]
     private array $tractors = [];
+
     /**
      * @var MultiTrack[]
      */
+    #[SerializedPath("[multitrack]")]
     private array $multiTracks = [];
+
     /**
      * @var Chain[]
      */
+    #[SerializedPath("[chain]")]
     private array $chains = [];
-
-    public static function createFromXmlElement(SimpleXMLElement $element): self
-    {
-        $playlist = (new self)
-            ->setId($element['id'])
-            ->setIn($element['in'])
-            ->setOut($element['out'])
-            ->setTitle($element['title']);
-
-        foreach ($element->xpath('property') as $propertyElement) {
-            $playlist->addProperty(Property::createFromXmlElement($propertyElement));
-        }
-
-        foreach ($element->xpath('entry') as $entryElement) {
-            $playlist->addEntry(Entry::createFromXmlElement($entryElement));
-        }
-
-        foreach ($element->xpath('producer') as $producerElement) {
-            $playlist->addProducer(Producer::createFromXmlElement($producerElement));
-        }
-
-        foreach ($element->xpath('playlist') as $playlistElement) {
-            $playlist->addPlaylist(Playlist::createFromXmlElement($playlistElement));
-        }
-
-        foreach ($element->xpath('tractor') as $tractorElement) {
-            $playlist->addTractor(Tractor::createFromXmlElement($tractorElement));
-        }
-
-        foreach ($element->xpath('multitrack') as $multitrackElement) {
-            $playlist->addMultiTrack(MultiTrack::createFromXmlElement($multitrackElement));
-        }
-
-        foreach ($element->xpath('chain') as $chainElement) {
-            $playlist->addChain(Chain::createFromXmlElement($chainElement));
-        }
-
-        return $playlist;
-    }
 
     public function setTitle(?string $title): self
     {
@@ -132,43 +114,160 @@ class Playlist
         return $this;
     }
 
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
     }
 
-    private function addProperty(Property $property)
+    public function getPlaylists(): array
     {
-        $this->properties[] = $property;
+        return $this->playlists;
     }
 
-    private function addProducer(Producer $producer)
+    public function setPlaylists(array $playlists): self
+    {
+        $this->playlists = $playlists;
+
+        return $this;
+    }
+
+    public function addPlaylist(Playlist $playlist): self
+    {
+        $this->playlists[] = $playlist;
+
+        return $this;
+    }
+
+    public function getProducers(): array
+    {
+        return $this->producers;
+    }
+
+    public function setProducers(array $producers): self
+    {
+        $this->producers = $producers;
+
+        return $this;
+    }
+
+    public function addProducer(Producer $producer): self
     {
         $this->producers[] = $producer;
+
+        return $this;
     }
 
-    private function addEntry(Entry $entry)
+    public function getTractors(): array
     {
-        $this->entries[] = $entry;
+        return $this->tractors;
     }
 
-    private function addPlaylist(Playlist $entry)
+    public function setTractors(array $tractors): self
     {
-        $this->playlists[] = $entry;
+        $this->tractors = $tractors;
+
+        return $this;
     }
 
-    private function addTractor(Tractor $tractor)
+    public function addTractor(Tractor $tractor): self
     {
         $this->tractors[] = $tractor;
+
+        return $this;
     }
 
-    private function addMultiTrack(MultiTrack $multiTrack)
+    public function getMultiTracks(): array
+    {
+        return $this->multiTracks;
+    }
+
+    public function setMultiTracks(array $multiTracks): self
+    {
+        $this->multiTracks = $multiTracks;
+
+        return $this;
+    }
+
+    public function addMultiTrack(MultiTrack $multiTrack): self
     {
         $this->multiTracks[] = $multiTrack;
+
+        return $this;
     }
 
-    private function addChain(Chain $chain)
+    public function getChains(): array
+    {
+        return $this->chains;
+    }
+
+    public function setChains(array $chains): self
+    {
+        $this->chains = $chains;
+
+        return $this;
+    }
+
+    public function addChain(Chain $chain): self
     {
         $this->chains[] = $chain;
+
+        return $this;
+    }
+
+    public function getEntries(): array
+    {
+        return $this->entries;
+    }
+
+    public function setEntries(array $entries): self
+    {
+        $this->entries = $entries;
+
+        return $this;
+    }
+
+    public function addEntry(Entry $entry): self
+    {
+        $this->entries[] = $entry;
+
+        return $this;
+    }
+
+    public function getBlanks(): array
+    {
+        return $this->blanks;
+    }
+
+    public function setBlanks(array $blanks): self
+    {
+        $this->blanks = $blanks;
+
+        return $this;
+    }
+
+    public function addBlank(Blank $blank): self
+    {
+        $this->blanks[] = $blank;
+
+        return $this;
+    }
+
+    public function getProperties(): array
+    {
+        return $this->properties;
+    }
+
+    public function setProperties(array $properties): self
+    {
+        $this->properties = $properties;
+
+        return $this;
+    }
+
+    public function addProperty(Property $property): self
+    {
+        $this->properties[] = $property;
+
+        return $this;
     }
 }

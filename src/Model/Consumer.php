@@ -2,30 +2,21 @@
 
 namespace MiloudH\KdenliveBundle\Model;
 
-use SimpleXMLElement;
+use Symfony\Component\Serializer\Annotation\SerializedPath;
 
 class Consumer
 {
+    #[SerializedPath("[@id]")]
     private ?string $id = null;
+
+    #[SerializedPath("[@mlt_service]")]
     private ?string $mlt_service = null;
 
     /**
      * @var Property[]
      */
+    #[SerializedPath("[property]")]
     private array $properties = [];
-
-    public static function createFromXmlElement(SimpleXMLElement $element): self
-    {
-        $consumer = (new self)
-            ->setId($element['id'])
-            ->setMltService($element['mlt_service']);
-
-        foreach ($element->xpath('property') as $propertyElement) {
-            $consumer->addProperty(Property::createFromXmlElement($propertyElement));
-        }
-
-        return $consumer;
-    }
 
     public function getMltService(): ?string
     {
@@ -51,8 +42,22 @@ class Consumer
         return $this;
     }
 
-    private function addProperty(Property $property)
+    public function getProperties(): array
+    {
+        return $this->properties;
+    }
+
+    public function setProperties(array $properties): self
+    {
+        $this->properties = $properties;
+
+        return $this;
+    }
+
+    public function addProperty(Property $property): self
     {
         $this->properties[] = $property;
+
+        return $this;
     }
 }

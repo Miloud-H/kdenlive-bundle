@@ -7,49 +7,37 @@ namespace MiloudH\KdenliveBundle\Model\Chain;
 use MiloudH\KdenliveBundle\Model\Property;
 use MiloudH\KdenliveBundle\Model\Track\Filter;
 use SimpleXMLElement;
+use Symfony\Component\Serializer\Annotation\SerializedPath;
 
 class Chain
 {
+    #[SerializedPath("[@id]")]
     private ?string $id = null;
+
+    #[SerializedPath("[@in]")]
     private ?string $in = null;
+
+    #[SerializedPath("[@out]")]
     private ?string $out = null;
+
+    #[SerializedPath("[@mlt_service]")]
     private ?string $mlt_service = null;
 
     /**
      * @var Property[]
      */
+    #[SerializedPath("[property]")]
     private array $properties = [];
     /**
      * @var Filter[]
      */
-    private ?array $filters = [];
+    #[SerializedPath("[filter]")]
+    private array $filters = [];
     /**
      * @var Link[]
      */
-    private ?array $links = [];
-
-    public static function createFromXmlElement(SimpleXMLElement $element): self
-    {
-        $chain = (new self)
-            ->setId($element['id'])
-            ->setIn($element['in'])
-            ->setOut($element['out'])
-            ->setMltService($element['mlt_service']);
-
-        foreach ($element->xpath('property') as $propertyElement) {
-            $chain->addProperty(Property::createFromXmlElement($propertyElement));
-        }
-
-        foreach ($element->xpath('filter') as $filterElement) {
-            $chain->addFilter(Filter::createFromXmlElement($filterElement));
-        }
-
-        foreach ($element->xpath('link') as $linkElement) {
-            $chain->addLink(Link::createFromXmlElement($linkElement));
-        }
-
-        return $chain;
-    }
+    #[SerializedPath("[link]")]
+    private array $links = [];
 
     public function getMltService(): ?string
     {
@@ -99,18 +87,60 @@ class Chain
         return $this;
     }
 
-    private function addProperty(Property $property)
+    public function getFilters(): array
     {
-        $this->properties[] = $property;
+        return $this->filters;
     }
 
-    private function addFilter(Filter $filter)
+    public function setFilters(array $filters): self
+    {
+        $this->filters = $filters;
+
+        return $this;
+    }
+
+    public function addFilter(Filter $filter): self
     {
         $this->filters[] = $filter;
+
+        return $this;
     }
 
-    private function addLink(Link $link)
+    public function getProperties(): array
+    {
+        return $this->properties;
+    }
+
+    public function setProperties(array $properties): self
+    {
+        $this->properties = $properties;
+
+        return $this;
+    }
+
+    public function addProperty(Property $property): self
+    {
+        $this->properties[] = $property;
+
+        return $this;
+    }
+
+    public function getLinks(): array
+    {
+        return $this->links;
+    }
+
+    public function setLinks(array $links): self
+    {
+        $this->links = $links;
+
+        return $this;
+    }
+
+    public function addLink(Link $link): self
     {
         $this->links[] = $link;
+
+        return $this;
     }
 }

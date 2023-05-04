@@ -21,7 +21,7 @@ class KdenliveExtension extends Extension
         $loader->load('services.yaml');
     }
 
-    public function getAlias()
+    public function getAlias(): string
     {
         return 'kdenlive_bundle';
     }

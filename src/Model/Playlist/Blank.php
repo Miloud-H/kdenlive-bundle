@@ -4,18 +4,21 @@
 namespace MiloudH\KdenliveBundle\Model\Playlist;
 
 
+use Symfony\Component\Serializer\Annotation\SerializedPath;
+
 class Blank
 {
-    private float $blank;
+    #[SerializedPath("[@length]")]
+    private string $length;
 
-    public function getBlank(): float
+    public function getLength(): string
     {
-        return $this->blank;
+        return $this->length;
     }
 
-    public function setBlank(float $blank): self
+    public function setLength(string $length): self
     {
-        $this->blank = $blank;
+        $this->length = $length;
 
         return $this;
     }

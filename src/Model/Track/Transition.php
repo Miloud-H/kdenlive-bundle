@@ -6,37 +6,33 @@ namespace MiloudH\KdenliveBundle\Model\Track;
 
 use MiloudH\KdenliveBundle\Model\Property;
 use SimpleXMLElement;
+use Symfony\Component\Serializer\Annotation\SerializedPath;
 
 class Transition
 {
+    #[SerializedPath("[@id]")]
     private ?string $id = null;
+
+    #[SerializedPath("[@in]")]
     private ?string $in = null;
+
+    #[SerializedPath("[@out]")]
     private ?string $out = null;
+
+    #[SerializedPath("[@mlt_service]")]
     private ?string $mlt_service = null;
-    private ?int $aTrack = null;
-    private ?int $bTrack = null;
+
+    #[SerializedPath("[@a_track]")]
+    private ?string $aTrack = null;
+
+    #[SerializedPath("[@b_track]")]
+    private ?string $bTrack = null;
 
     /**
      * @var Property[]
      */
+    #[SerializedPath("[property]")]
     private array $properties = [];
-
-    public static function createFromXmlElement(SimpleXMLElement $element): self
-    {
-        $transition = (new self)
-            ->setId($element['id'])
-            ->setIn($element['in'])
-            ->setOut($element['out'])
-            ->setMltService($element['mlt_service'])
-            ->setATrack(isset($element['a_track']) ? (int) $element['a_track'] : null)
-            ->setBTrack(isset($element['b_track']) ? (int) $element['b_track'] : null);
-
-        foreach ($element->xpath('property') as $propertyElement) {
-            $transition->addProperty(Property::createFromXmlElement($propertyElement));
-        }
-
-        return $transition;
-    }
 
     public function setBTrack(?int $bTrack): self
     {
@@ -110,8 +106,22 @@ class Transition
         return $this;
     }
 
-    private function addProperty(Property $property)
+    public function getProperties(): array
+    {
+        return $this->properties;
+    }
+
+    public function setProperties(array $properties): self
+    {
+        $this->properties = $properties;
+
+        return $this;
+    }
+
+    public function addProperty(Property $property): self
     {
         $this->properties[] = $property;
+
+        return $this;
     }
 }

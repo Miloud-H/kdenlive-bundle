@@ -1,0 +1,44 @@
+<mlt version="7.0" root="/tmp/root" title="I love tests">
+    <profile name="test" description="i love tests" sample_aspect_num="5" sample_aspect_den="4.0" progressive="1.0" width="1080" height="720" frame_rate_num="60" frame_rate_den="1.0" display_aspect_num="16" display_aspect_den="1.0" colorspace="test"/>
+    <producer id="producer0" in="00:00:00" out="00:05:00" title="Test" mlt_service="test">
+        <property name="resource">clip1.dv</property>
+        <filter id="filter0" in="00:00:00" out="00:05:00" mlt_service="test" track="track_test">
+            <property name="wip">zip</property>
+        </filter>
+    </producer>
+    <playlist id="playlist0" in="00:00:00" out="00:05:00" title="Test">
+        <property name="wip">zip</property>
+        <entry producer="producer0" in="00:00:00" out="00:05:00">
+            <producer id="producer1" in="00:05:00" out="00:10:00" title="Test 2" mlt_service="test">
+                <property name="resource">clip1.dv</property>
+                <filter id="filter0" in="00:00:00" out="00:05:00" mlt_service="test" track="track_test">
+                    <property name="wip">zip</property>
+                </filter>
+            </producer>
+            <playlist id="playlist2" in="00:20:00" out="00:25:00" title="Test 3">
+                <property name="wip">zip</property>
+                <entry producer="producer1" in="00:00:00" out="00:05:00">
+                    <producer id="producer2" in="00:05:00" out="00:10:00" title="Test 2" mlt_service="test">
+                        <property name="resource">clip1.dv</property>
+                        <filter id="filter2" in="00:00:00" out="00:05:00" mlt_service="test" track="track_test">
+                            <property name="wip">zip</property>
+                        </filter>
+                    </producer>
+                </entry>
+            </playlist>
+            <tractor id="tractor1" in="00:20:00" out="00:25:00" title="Test 4">
+                <property name="resource">clip1.dv</property>
+                <filter id="filter1" in="00:20:00" out="00:25:00" mlt_service="test" track="track_test">
+                    <property name="wip">zip</property>
+                </filter>
+            </tractor>
+        </entry>
+        <blank length="5" />
+    </playlist>
+    <tractor id="tractor2" in="00:00:00" out="00:05:00" title="Test 5">
+        <property name="resource">clip1.dv</property>
+        <filter id="filter2" in="00:00:00" out="00:05:00" mlt_service="test" track="track_test">
+            <property name="wip">zip</property>
+        </filter>
+    </tractor>
+</mlt>

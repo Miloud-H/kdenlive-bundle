@@ -2,39 +2,36 @@
 
 namespace MiloudH\KdenliveBundle\Model;
 
-use SimpleXMLElement;
+use Symfony\Component\Serializer\Annotation\SerializedPath;
 
 class Property
 {
-    private string $name;
-    private ?string $value;
+    #[SerializedPath("[@name]")]
+    // TODO Convert value for string all time, there is name="0"
+    private mixed $name;
 
-    public static function createFromXmlElement(SimpleXMLElement $element): self
-    {
-        return (new self)
-            ->setName($element['name'])
-            ->setValue($element->__toString());
-    }
+    #[SerializedPath("[#]")]
+    private mixed $value;
 
-    public function setName(string $name): self
+    public function setName(mixed $name): self
     {
         $this->name = $name;
 
         return $this;
     }
 
-    public function getName(): string
+    public function getName(): mixed
     {
         return $this->name;
     }
 
-    public function setValue(?string $value): self
+    public function setValue(mixed $value): self
     {
         $this->value = $value;
         return $this;
     }
 
-    public function getValue(): ?string
+    public function getValue(): mixed
     {
         return $this->value;
     }

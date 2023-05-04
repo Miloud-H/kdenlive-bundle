@@ -3,45 +3,39 @@
 namespace MiloudH\KdenliveBundle\Model\Track;
 
 use MiloudH\KdenliveBundle\Model\Property;
-use SimpleXMLElement;
+use Symfony\Component\Serializer\Annotation\SerializedPath;
 
 class Filter
 {
+    #[SerializedPath("[@id]")]
     private ?string $id = null;
+
+    #[SerializedPath("[@in]")]
     private ?string $in = null;
+
+    #[SerializedPath("[@out]")]
     private ?string $out = null;
+
+    #[SerializedPath("[@mlt_service]")]
     private ?string $mlt_service = null;
-    private ?Track $track = null;
+
+    #[SerializedPath("[@track]")]
+    private ?string $track = null;
 
     /**
      * @var Property[]
      */
+    #[SerializedPath("[property]")]
     private array $properties = [];
 
-    public static function createFromXmlElement(SimpleXMLElement $element): self
-    {
-        $filter = (new self)
-            ->setId($element['id'])
-            ->setIn($element['in'])
-            ->setOut($element['out'])
-            ->setMltService($element['mlt_service']);
-        //TODO AJouter le track
-
-        foreach ($element->xpath('property') as $propertyElement) {
-            $filter->addProperty(Property::createFromXmlElement($propertyElement));
-        }
-
-        return $filter;
-    }
-
-    public function setTrack(?Track $track): self
+    public function setTrack(?string $track): self
     {
         $this->track = $track;
 
         return $this;
     }
 
-    public function getTrack(): ?Track
+    public function getTrack(): ?string
     {
         return $this->track;
     }
@@ -89,13 +83,27 @@ class Filter
         return $this;
     }
 
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
     }
 
-    private function addProperty(Property $property)
+    public function getProperties(): array
+    {
+        return $this->properties;
+    }
+
+    public function setProperties(array $properties): self
+    {
+        $this->properties = $properties;
+
+        return $this;
+    }
+
+    public function addProperty(Property $property): self
     {
         $this->properties[] = $property;
+
+        return $this;
     }
 }
