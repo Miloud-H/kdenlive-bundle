@@ -18,62 +18,62 @@ class Profile
     private ?string $description = null;
 
     #[SerializedPath("[@display_aspect_den]")]
-    private ?int $displayAspectDen = null;
+    private ?float $displayAspectDen = null;
 
     #[SerializedPath("[@display_aspect_num]")]
-    private ?int $displayAspectNum = null;
+    private ?float $displayAspectNum = null;
 
     #[SerializedPath("[@frame_rate_den]")]
-    private ?int $frameRateDen = null;
+    private ?float $frameRateDen = null;
 
     #[SerializedPath("[@frame_rate_num]")]
-    private ?int $frameRateNum = null;
+    private ?float $frameRateNum = null;
 
     #[SerializedPath("[@height]")]
-    private ?int $height = null;
+    private ?float $height = null;
 
     #[SerializedPath("[@width]")]
-    private ?int $width = null;
+    private ?float $width = null;
 
     #[SerializedPath("[@progressive]")]
-    private ?int $progressive = null;
+    private ?float $progressive = null;
 
     #[SerializedPath("[@sample_aspect_den]")]
-    private ?int $sampleAspectDen = null;
+    private ?float $sampleAspectDen = null;
 
     #[SerializedPath("[@sample_aspect_num]")]
-    private ?int $sampleAspectNum = null;
+    private ?float $sampleAspectNum = null;
 
     public function getSampleAspectNum(): ?float
     {
         return $this->sampleAspectNum;
     }
 
-    public function setSampleAspectNum(?int $sampleAspectNum): self
+    public function setSampleAspectNum(?float $sampleAspectNum): self
     {
         $this->sampleAspectNum = $sampleAspectNum;
 
         return $this;
     }
 
-    public function getSampleAspectDen(): ?int
+    public function getSampleAspectDen(): ?float
     {
         return $this->sampleAspectDen;
     }
 
-    public function setSampleAspectDen(?int $sampleAspectDen): self
+    public function setSampleAspectDen(?float $sampleAspectDen): self
     {
         $this->sampleAspectDen = $sampleAspectDen;
 
         return $this;
     }
 
-    public function getProgressive(): ?int
+    public function getProgressive(): ?float
     {
         return $this->progressive;
     }
 
-    public function setProgressive(?int $progressive): self
+    public function setProgressive(?float $progressive): self
     {
         $this->progressive = $progressive;
 
@@ -85,7 +85,7 @@ class Profile
         return $this->width;
     }
 
-    public function setWidth(?int $width): self
+    public function setWidth(?float $width): self
     {
         $this->width = $width;
 
@@ -97,7 +97,7 @@ class Profile
         return $this->height;
     }
 
-    public function setHeight(?int $height): self
+    public function setHeight(?float $height): self
     {
         $this->height = $height;
 
@@ -109,43 +109,43 @@ class Profile
         return $this->frameRateNum;
     }
 
-    public function setFrameRateNum(?int $frameRateNum): self
+    public function setFrameRateNum(?float $frameRateNum): self
     {
         $this->frameRateNum = $frameRateNum;
 
         return $this;
     }
 
-    public function getFrameRateDen(): ?int
+    public function getFrameRateDen(): ?float
     {
         return $this->frameRateDen;
     }
 
-    public function setFrameRateDen(?int $frameRateDen): self
+    public function setFrameRateDen(?float $frameRateDen): self
     {
         $this->frameRateDen = $frameRateDen;
 
         return $this;
     }
 
-    public function getDisplayAspectNum(): ?int
+    public function getDisplayAspectNum(): ?float
     {
         return $this->displayAspectNum;
     }
 
-    public function setDisplayAspectNum(?int $displayAspectNum): self
+    public function setDisplayAspectNum(?float $displayAspectNum): self
     {
         $this->displayAspectNum = $displayAspectNum;
 
         return $this;
     }
 
-    public function getDisplayAspectDen(): ?int
+    public function getDisplayAspectDen(): ?float
     {
         return $this->displayAspectDen;
     }
 
-    public function setDisplayAspectDen(?int $displayAspectDen): self
+    public function setDisplayAspectDen(?float $displayAspectDen): self
     {
         $this->displayAspectDen = $displayAspectDen;
 
@@ -164,7 +164,7 @@ class Profile
         return $this;
     }
 
-    public function getColorspace(): ?string
+    public function getColorspace(): ?int
     {
         return $this->colorspace;
     }

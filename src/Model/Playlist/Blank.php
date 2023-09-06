@@ -9,14 +9,14 @@ use Symfony\Component\Serializer\Annotation\SerializedPath;
 class Blank
 {
     #[SerializedPath("[@length]")]
-    private string $length;
+    private int $length;
 
-    public function getLength(): string
+    public function getLength(): int
     {
         return $this->length;
     }
 
-    public function setLength(string $length): self
+    public function setLength(int $length): self
     {
         $this->length = $length;
 

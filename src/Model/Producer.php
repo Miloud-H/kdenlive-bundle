@@ -3,7 +3,6 @@
 namespace MiloudH\KdenliveBundle\Model;
 
 use MiloudH\KdenliveBundle\Model\Track\Filter;
-use SimpleXMLElement;
 use Symfony\Component\Serializer\Annotation\SerializedPath;
 
 class Producer

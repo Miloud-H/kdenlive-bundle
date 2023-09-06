@@ -5,7 +5,6 @@ namespace MiloudH\KdenliveBundle\Model\Track;
 
 
 use MiloudH\KdenliveBundle\Model\Property;
-use SimpleXMLElement;
 use Symfony\Component\Serializer\Annotation\SerializedPath;
 
 class Transition

@@ -7,7 +7,6 @@ use MiloudH\KdenliveBundle\Model\Playlist\Blank;
 use MiloudH\KdenliveBundle\Model\Playlist\Entry;
 use MiloudH\KdenliveBundle\Model\Track\MultiTrack;
 use MiloudH\KdenliveBundle\Model\Track\Tractor;
-use SimpleXMLElement;
 use Symfony\Component\Serializer\Annotation\SerializedPath;
 
 class Playlist

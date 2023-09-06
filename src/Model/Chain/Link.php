@@ -3,7 +3,6 @@
 namespace MiloudH\KdenliveBundle\Model\Chain;
 
 use MiloudH\KdenliveBundle\Model\Property;
-use SimpleXMLElement;
 use Symfony\Component\Serializer\Annotation\SerializedPath;
 
 class Link
