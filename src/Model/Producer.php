@@ -3,18 +3,15 @@
 namespace MiloudH\KdenliveBundle\Model;
 
 use MiloudH\KdenliveBundle\Model\Track\Filter;
+use MiloudH\KdenliveBundle\Trait\TimecodedTrait;
 use Symfony\Component\Serializer\Annotation\SerializedPath;
 
 class Producer
 {
+    use TimecodedTrait;
+
     #[SerializedPath("[@id]")]
     private ?string $id = null;
-
-    #[SerializedPath("[@in]")]
-    private ?string $in = null;
-
-    #[SerializedPath("[@out]")]
-    private ?string $out = null;
 
     #[SerializedPath("[@title]")]
     private ?string $title = null;
@@ -54,30 +51,6 @@ class Producer
     public function setTitle(?string $title): self
     {
         $this->title = $title;
-
-        return $this;
-    }
-
-    public function getOut(): ?string
-    {
-        return $this->out;
-    }
-
-    public function setOut(?string $out): self
-    {
-        $this->out = $out;
-
-        return $this;
-    }
-
-    public function getIn(): ?string
-    {
-        return $this->in;
-    }
-    
-    public function setIn(?string $in): self
-    {
-        $this->in = $in;
 
         return $this;
     }

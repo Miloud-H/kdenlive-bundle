@@ -6,18 +6,15 @@ namespace MiloudH\KdenliveBundle\Model\Chain;
 
 use MiloudH\KdenliveBundle\Model\Property;
 use MiloudH\KdenliveBundle\Model\Track\Filter;
+use MiloudH\KdenliveBundle\Trait\TimecodedTrait;
 use Symfony\Component\Serializer\Annotation\SerializedPath;
 
 class Chain
 {
+    use TimecodedTrait;
+
     #[SerializedPath("[@id]")]
     private ?string $id = null;
-
-    #[SerializedPath("[@in]")]
-    private ?string $in = null;
-
-    #[SerializedPath("[@out]")]
-    private ?string $out = null;
 
     #[SerializedPath("[@mlt_service]")]
     private ?string $mlt_service = null;
@@ -46,30 +43,6 @@ class Chain
     public function setMltService(?string $mlt_service): self
     {
         $this->mlt_service = $mlt_service;
-
-        return $this;
-    }
-
-    public function getOut(): ?string
-    {
-        return $this->out;
-    }
-
-    public function setOut(?string $out): self
-    {
-        $this->out = $out;
-
-        return $this;
-    }
-
-    public function getIn(): ?string
-    {
-        return $this->in;
-    }
-
-    public function setIn(?string $in): self
-    {
-        $this->in = $in;
 
         return $this;
     }

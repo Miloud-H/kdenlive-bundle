@@ -7,18 +7,15 @@ use MiloudH\KdenliveBundle\Model\Playlist\Blank;
 use MiloudH\KdenliveBundle\Model\Playlist\Entry;
 use MiloudH\KdenliveBundle\Model\Track\MultiTrack;
 use MiloudH\KdenliveBundle\Model\Track\Tractor;
+use MiloudH\KdenliveBundle\Trait\TimecodedTrait;
 use Symfony\Component\Serializer\Annotation\SerializedPath;
 
 class Playlist
 {
+    use TimecodedTrait;
+
     #[SerializedPath("[@id]")]
     private ?string $id = null;
-
-    #[SerializedPath("[@in]")]
-    private ?string $in = null;
-
-    #[SerializedPath("[@out]")]
-    private ?string $out = null;
 
     #[SerializedPath("[@title]")]
     private ?string $title = null;
@@ -80,30 +77,6 @@ class Playlist
     public function getTitle(): ?string
     {
         return $this->title;
-    }
-
-    public function setOut(?string $out): self
-    {
-        $this->out = $out;
-
-        return $this;
-    }
-
-    public function getOut(): ?string
-    {
-        return $this->out;
-    }
-
-    public function setIn(?string $in): self
-    {
-        $this->in = $in;
-
-        return $this;
-    }
-
-    public function getIn(): ?string
-    {
-        return $this->in;
     }
 
     public function setId(?string $id): self

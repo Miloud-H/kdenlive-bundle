@@ -2,18 +2,15 @@
 namespace MiloudH\KdenliveBundle\Model\Track;
 
 use MiloudH\KdenliveBundle\Model\Property;
+use MiloudH\KdenliveBundle\Trait\TimecodedTrait;
 use Symfony\Component\Serializer\Annotation\SerializedPath;
 
 class Tractor
 {
+    use TimecodedTrait;
+
     #[SerializedPath("[@id]")]
     private ?string $id = null;
-
-    #[SerializedPath("[@in]")]
-    private ?string $in = null;
-
-    #[SerializedPath("[@out]")]
-    private ?string $out = null;
 
     #[SerializedPath("[@title]")]
     private ?string $title = null;
@@ -58,30 +55,6 @@ class Tractor
     public function getTitle(): ?string
     {
         return $this->title;
-    }
-
-    public function setOut(?string $out): self
-    {
-        $this->out = $out;
-
-        return $this;
-    }
-
-    public function getOut(): ?string
-    {
-        return $this->out;
-    }
-
-    public function setIn(?string $in): self
-    {
-        $this->in = $in;
-
-        return $this;
-    }
-
-    public function getIn(): ?string
-    {
-        return $this->in;
     }
 
     public function setId(?string $id): self

@@ -12,18 +12,15 @@ use MiloudH\KdenliveBundle\Model\Track\Filter;
 use MiloudH\KdenliveBundle\Model\Track\MultiTrack;
 use MiloudH\KdenliveBundle\Model\Track\Tractor;
 use MiloudH\KdenliveBundle\Model\Track\Transition;
+use MiloudH\KdenliveBundle\Trait\TimecodedTrait;
 use Symfony\Component\Serializer\Annotation\SerializedPath;
 
 class Entry
 {
+    use TimecodedTrait;
+
     #[SerializedPath("[@producer]")]
     private ?string $producer = null;
-
-    #[SerializedPath("[@in]")]
-    private ?string $in = null;
-
-    #[SerializedPath("[@out]")]
-    private ?string $out = null;
 
     /**
      * @var Property[]
@@ -83,30 +80,6 @@ class Entry
         $this->producer = $producer;
 
         return $this;
-    }
-
-    public function setIn(?string $in): self
-    {
-        $this->in = $in;
-
-        return $this;
-    }
-
-    public function getIn(): ?string
-    {
-        return $this->in;
-    }
-
-    public function setOut(?string $out): self
-    {
-        $this->out = $out;
-
-        return $this;
-    }
-
-    public function getOut(): ?string
-    {
-        return $this->out;
     }
 
     public function getProducers(): array
