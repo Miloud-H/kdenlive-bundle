@@ -11,8 +11,10 @@ use MiloudH\KdenliveBundle\Model\Profile;
 use MiloudH\KdenliveBundle\Model\Property;
 use MiloudH\KdenliveBundle\Model\Track\Filter;
 use MiloudH\KdenliveBundle\Model\Track\Tractor;
+use MiloudH\KdenliveBundle\Serializer\TimeCodeNormalizer;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor;
+use Symfony\Component\Serializer\Context\Normalizer\ObjectNormalizerContextBuilder;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
 use Symfony\Component\Serializer\Mapping\Loader\AnnotationLoader;
@@ -28,10 +30,14 @@ class KdenliveFileTest extends TestCase
     protected function setUp(): void
     {
         $classMetadataFactory = new ClassMetadataFactory(new AnnotationLoader());
+
+        $objectNormalizer = new ObjectNormalizer($classMetadataFactory, null, null, new ReflectionExtractor());
+
         /** @var SerializerInterface $serializer */
         $this->serializer = new Serializer(
             [
-                new ObjectNormalizer($classMetadataFactory, null, null, new ReflectionExtractor()),
+                new TimeCodeNormalizer(),
+                $objectNormalizer,
                 new ArrayDenormalizer(),
             ],
             [
@@ -45,7 +51,11 @@ class KdenliveFileTest extends TestCase
         $result = $this->serializer->deserialize(
             file_get_contents(__DIR__ . '/fixtures/expected.xml'),
             KdenliveFile::class,
-            'xml'
+            'xml',
+            [
+                XmlEncoder::FORMAT_OUTPUT => true,
+                XmlEncoder::ROOT_NODE_NAME => 'mlt',
+            ]
         );
 
         self::assertEquals($this->createExpectedKdenlive(), $result);
@@ -85,14 +95,14 @@ class KdenliveFileTest extends TestCase
     private function createExpectedKdenlive(): KdenliveFile
     {
         return (new KdenliveFile())
-            ->setVersion(7.0)
+            ->setVersion('tktpoto')
             ->setRoot('/tmp/root')
             ->setTitle('I love tests')
             ->addProfile(
                 (new Profile())
                 ->setName('test')
                 ->setDescription('i love tests')
-                ->setColorspace('test')
+                ->setColorspace(601)
                 ->setDisplayAspectNum(16)
                 ->setDisplayAspectDen(1.0)
                 ->setFrameRateNum(60)

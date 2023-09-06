@@ -1,5 +1,5 @@
-<mlt version="7.0" root="/tmp/root" title="I love tests">
-    <profile name="test" description="i love tests" sample_aspect_num="5" sample_aspect_den="4.0" progressive="1.0" width="1080" height="720" frame_rate_num="60" frame_rate_den="1.0" display_aspect_num="16" display_aspect_den="1.0" colorspace="test"/>
+<mlt version="tktpoto" root="/tmp/root" title="I love tests">
+    <profile name="test" description="i love tests" sample_aspect_num="5.0" sample_aspect_den="4.0" progressive="1.0" width="1080.0" height="720.0" frame_rate_num="60.0" frame_rate_den="1.0" display_aspect_num="16.0" display_aspect_den="1.0" colorspace="601"/>
     <producer id="producer0" in="00:00:00" out="00:05:00" title="Test" mlt_service="test">
         <property name="resource">clip1.dv</property>
         <filter id="filter0" in="00:00:00" out="00:05:00" mlt_service="test" track="track_test">

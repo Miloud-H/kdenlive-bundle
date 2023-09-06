@@ -4,34 +4,35 @@
 namespace MiloudH\KdenliveBundle\Trait;
 
 
+use DateInterval;
 use Symfony\Component\Serializer\Annotation\SerializedPath;
 
 trait TimecodedTrait
 {
     #[SerializedPath("[@in]")]
-    private ?string $in = null;
+    private DateInterval $in;
 
     #[SerializedPath("[@out]")]
-    private ?string $out = null;
+    private DateInterval $out;
 
-    public function getIn(): ?string
+    public function getIn(): DateInterval
     {
         return $this->in;
     }
 
-    public function setIn(?string $in): self
+    public function setIn(DateInterval $in): self
     {
         $this->in = $in;
 
         return $this;
     }
 
-    public function getOut(): ?string
+    public function getOut(): DateInterval
     {
         return $this->out;
     }
 
-    public function setOut(?string $out): self
+    public function setOut(DateInterval $out): self
     {
         $this->out = $out;
 
